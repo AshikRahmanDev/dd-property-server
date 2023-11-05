@@ -12,7 +12,7 @@ router.post("/create",async(req,res)=>{
 
 router.get("/latest",async(req,res)=>{
     const query = {};
-    const result = await propertyCollection.find(query).sort({_id:-1}).toArray();
+    const result = await propertyCollection.find(query).sort({_id:-1}).limit(4).toArray();
     res.send(result)
 })
 
