@@ -16,6 +16,12 @@ router.get("/latest",async(req,res)=>{
     res.send(result)
 })
 
+router.get("/",async(req,res)=>{
+    const query = {};
+    const result = await propertyCollection.find(query).toArray()
+    res.send(result)
+})
+
 router.get("/:id",async(req,res)=>{
     const id = req.params.id
     const query = {_id: new ObjectId(id)}

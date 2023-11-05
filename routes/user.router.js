@@ -5,9 +5,17 @@ const router = express.Router()
 
 router.post("/create",async(req,res)=>{
     const user = req.body
+    const query = {email:user?.email}
     console.log(user)
-    const result = await userCollection.insertOne(user)
-    res.send(result)
+    const userExist = await userCollection.findOne(query)
+    console.log(userExist)
+    if(userExist){
+        res.send({message:"userExisted"})
+    }else{
+        console.log("hit")
+        const result = await userCollection.insertOne(user)
+        res.send(result)
+    }
 })
 
 router.get("/exist", async(req,res)=>{
