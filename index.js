@@ -4,6 +4,7 @@ const cors = require("cors");
 const port = process.env.PORT || 4000;
 const app = express()
 const userRouter = require('./routes/user.router')
+const propertyRouter = require("./routes/property.router")
 
 
 // midleware
@@ -13,6 +14,7 @@ app.use(express.json())
 
 
 app.use("/user",userRouter)
+app.use("/property",propertyRouter)
 
 
 app.get("/",(req,res)=>{

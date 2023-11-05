@@ -26,8 +26,9 @@ const database = "ddproperty"
 
 // collection
 const userCollection = client.db(database).collection("users")
+const propertyCollection = client.db(database).collection("property")
 
 module.exports={
-    // run,
-    userCollection
+    userCollection,
+    propertyCollection
 }
