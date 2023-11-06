@@ -17,9 +17,41 @@ router.get("/latest",async(req,res)=>{
 })
 
 router.get("/",async(req,res)=>{
-    const query = {};
-    const result = await propertyCollection.find(query).toArray()
-    res.send(result)
+    const {search,type,rooms} = req.query;
+    console.log(search , type , rooms)
+    if(search && type && rooms){
+        const query = {"location.city":search,propertyType:type,"detailInformation.bedrooms":rooms}
+        const result = await propertyCollection.find(query).toArray()
+        res.send(result)
+    }
+    else if(search && type){
+        const query = {"location.city":search,propertyType:type}
+        const result = await propertyCollection.find(query).toArray()
+        res.send(result)
+    }else if(search && rooms){
+        
+        const query = {"location.city":search,"detailInformation.bedrooms":rooms}
+        const result = await propertyCollection.find(query).toArray()
+        res.send(result)
+    }else if(search ){
+        const query = {"location.city":search}
+        const result = await propertyCollection.find(query).toArray()
+        res.send(result)
+    }else if(rooms){
+        const query = {"detailInformation.bedrooms":rooms}
+        const result = await propertyCollection.find(query).toArray()
+        res.send(result)
+    }else if(type){
+        const query = {propertyType:type}
+        const result = await propertyCollection.find(query).toArray()
+        res.send(result)
+    }
+    else{
+        const query = {};
+        const result = await propertyCollection.find(query).toArray()
+        res.send(result)
+    }
+    
 })
 
 router.get("/:id",async(req,res)=>{
