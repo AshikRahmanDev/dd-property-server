@@ -16,6 +16,16 @@ router.get("/latest",async(req,res)=>{
     res.send(result)
 })
 
+// search shortcut
+router.get("/search",async(req,res)=>{
+    const search= req.query.search.toLowerCase()
+    const properties = await propertyCollection.find({}).toArray()
+    const matchingCity = properties.filter(item=>item.location.city.toLowerCase().includes(search))
+    console.log(matchingCity.map(item=>item.location.city))
+    const result = matchingCity.map(item=>item.location.city)
+    res.send(result)
+})
+
 router.get("/",async(req,res)=>{
     const {search,type,rooms} = req.query;
     console.log(search , type , rooms)
